@@ -28,9 +28,11 @@ dependencies {
     androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
     compile ('com.ibm.mobilefirstplatform.clientsdk.android:core:[2.0.0,3.0.0)')
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    compile group: 'com.cloudant', name: 'cloudant-sync-datastore-android', version:'1.1.5'
+
 }
 repositories {
     mavenCentral()
