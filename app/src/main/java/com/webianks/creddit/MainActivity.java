@@ -1,52 +1,57 @@
 package com.webianks.creddit;
 
+
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.cloudant.sync.datastore.Datastore;
-import com.cloudant.sync.datastore.DatastoreManager;
-import com.cloudant.sync.datastore.DatastoreNotCreatedException;
-import com.ibm.mobilefirstplatform.clientsdk.android.core.api.BMSClient;
+import com.cloudant.sync.documentstore.AttachmentException;
+import com.cloudant.sync.documentstore.ConflictException;
+import com.cloudant.sync.documentstore.DocumentBodyFactory;
+import com.cloudant.sync.documentstore.DocumentNotFoundException;
+import com.cloudant.sync.documentstore.DocumentRevision;
+import com.cloudant.sync.documentstore.DocumentStore;
+import com.cloudant.sync.documentstore.DocumentStoreException;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-
-
-    private java.net.URI cloudantUri;
-    private Datastore ds;
-    private DatastoreManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        // Create a DatastoreManager using application internal storage path
-        java.io.File path = getApplicationContext().getDir("datastores", android.content.Context.MODE_PRIVATE);
-        manager = DatastoreManager.getInstance(path);
+        // Obtain storage path on Android
+        File path = getApplicationContext().getDir("documentstores", Context.MODE_PRIVATE);
 
         try {
-            cloudantUri = new java.net.URI(getApplicationContext().getResources().getString(R.string.cloudantUrl1) + "/your_db_name");
-            // Create the Datastore object you'll use in all of your Cloudant operations:
-            ds = manager.openDatastore("creddit_datastore");
+            // Obtain reference to DocumentStore instance, creating it if doesn't exist
+            DocumentStore ds = DocumentStore.getInstance(new File(path, "creddit_document_store"));
 
-            // At this point, you may wish to create pull and push replicators for bi-directional sync.  It is up
-            // to you, the developer, to program the interaction between the Cloudant database and the mobile application.
-            // A simple example follows.  The example does not include a countdown latch, does not show how to
-            // subscribe to sync events, and ignores sync errors.
+            // Create a document
+            DocumentRevision revision = new DocumentRevision();
+            Map<String, Object> body = new HashMap<String, Object>();
+            body.put("animal", "cat");
+            revision.setBody(DocumentBodyFactory.create(body));
+            DocumentRevision saved = ds.database().create(revision);
 
-            // Create and run the pull replicator
-            //com.cloudant.sync.replication.Replicator pullReplicator = com.cloudant.sync.replication.ReplicatorBuilder.pull().from(cloudantUri).to(ds).build();
-            //pullReplicator.start();
-            // Create and run the push replicator
-            //com.cloudant.sync.replication.Replicator pushReplicator = com.cloudant.sync.replication.ReplicatorBuilder.push().to(cloudantUri).from(ds).build();
-            //pushReplicator.start();
+            DocumentRevision updated = ds.database().update(saved);
 
-        } catch (java.net.URISyntaxException e) {
-            android.util.Log.e("TAG", e.getMessage(), e);
-        } catch (DatastoreNotCreatedException e) {
-            android.util.Log.e("TAG", e.getMessage(), e);
+            // Read a document
+            DocumentRevision aRevision = ds.database().read(updated.getId());
+            aRevision.getAttachments();
+
+        } catch (DocumentStoreException dse) {
+            System.err.println("Problem opening or accessing DocumentStore: "+dse);
+        } catch (DocumentNotFoundException e) {
+            e.printStackTrace();
+        } catch (AttachmentException e) {
+            e.printStackTrace();
+        } catch (ConflictException e) {
+            e.printStackTrace();
         }
-
     }
 }
