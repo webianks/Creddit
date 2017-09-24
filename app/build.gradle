@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 25
     buildToolsVersion "26.0.0"
     defaultConfig {
         applicationId "com.webianks.creddit"
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -22,7 +22,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:appcompat-v7:25.1.0'
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
@@ -31,7 +31,8 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
     implementation ('com.ibm.mobilefirstplatform.clientsdk.android:core:[2.0.0,3.0.0)')
-    compile group: 'com.cloudant', name: 'cloudant-sync-datastore-android', version:'2.0.2'
+    compile group: 'com.cloudant', name: 'cloudant-client', version: '2.9.0'
+    compile group: 'com.squareup.okhttp3', name: 'okhttp-urlconnection', version: '3.4.2'
 
 }
 repositories {
