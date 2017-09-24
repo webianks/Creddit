@@ -12,6 +12,7 @@ import com.cloudant.client.api.CloudantClient;
 import com.cloudant.client.api.Database;
 import com.cloudant.client.api.model.Params;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    class CloudantClientAsync extends AsyncTask<Void,Void,Integer>{
+    /*class CloudantClientAsync extends AsyncTask<Void,Void,Integer>{
 
         @Override
         protected Integer doInBackground(Void... voids) {
@@ -56,12 +57,12 @@ public class MainActivity extends AppCompatActivity {
 
             Database users_db = client.database("users", false);
             Database balance_db = client.database("account_balance", false);
-            User user = users_db.find(User.class,"ramankit_1214353AB");
+            CredditData user = users_db.find(CredditData.class,"ramankit_1214353AB");
 
 
             Params params = new Params();
             params.addParam("user_id",user.get_id());
-            Balance balance = balance_db.find(Balance.class,"460b7f0485280cef6209752a748f3002",params);
+           // Balance balance = balance_db.find(Balance.class,"460b7f0485280cef6209752a748f3002",params);
 
             return  balance.getBalance();
         }
@@ -73,5 +74,5 @@ public class MainActivity extends AppCompatActivity {
             if (value != null)
               balance.setText("$"+String.valueOf(value.intValue()));
         }
-    }
+    }*/
 }
