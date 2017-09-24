@@ -88,9 +88,8 @@ class SignupActivity : AppCompatActivity() {
 
             val newUser = User(phone_number+"@#"+m_pin,"Droid Man",phone_number,m_pin)
             users_db.save(newUser)
-            println("You have inserted the document")
+
             val doc = users_db.find(User::class.java, phone_number+"@#"+m_pin)
-            System.out.println(doc)
 
             return true
         }

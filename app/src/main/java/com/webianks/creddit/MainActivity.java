@@ -1,10 +1,16 @@
 package com.webianks.creddit;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.cloudant.client.api.ClientBuilder;
@@ -12,12 +18,13 @@ import com.cloudant.client.api.CloudantClient;
 import com.cloudant.client.api.Database;
 import com.cloudant.client.api.model.Params;
 
-import java.util.ArrayList;
 import java.util.List;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private TextView balance;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +33,9 @@ public class MainActivity extends AppCompatActivity {
 
         initViews();
 
-        //new CloudantClientAsync().execute();
+        Intent intent = getIntent();
+        String user_doc_key = intent.getStringExtra("user_document_key");
+        new CloudantClientAsync().execute(user_doc_key+"_account_");
 
     }
 
@@ -34,45 +43,56 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         balance = (TextView) findViewById(R.id.main_balance);
+        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
     }
 
-    /*class CloudantClientAsync extends AsyncTask<Void,Void,Integer>{
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.change_info){
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    class CloudantClientAsync extends AsyncTask<String,Void,String> {
 
         @Override
-        protected Integer doInBackground(Void... voids) {
+        protected String doInBackground(String... strings) {
 
             CloudantClient client = ClientBuilder.account(getString(R.string.cloudantUsername1))
                     .username(getString(R.string.cloudantUsername1))
                     .password(getString(R.string.cloudantPassword1))
                     .build();
 
-            List<String> databases = client.getAllDbs();
-            Log.d("webi","All my databases : ");
-            for ( String db : databases ) {
-                Log.d("webi",db);
+
+            Database account_db = client.database("account_info", false);
+            try {
+                AccountInfo accountInfo = account_db.find(AccountInfo.class, strings[0]);
+                return accountInfo.getBalance();
+            }catch (Exception e){
+                e.printStackTrace();
+                return null;
             }
-
-            Database users_db = client.database("users", false);
-            Database balance_db = client.database("account_balance", false);
-            CredditData user = users_db.find(CredditData.class,"ramankit_1214353AB");
-
-
-            Params params = new Params();
-            params.addParam("user_id",user.get_id());
-           // Balance balance = balance_db.find(Balance.class,"460b7f0485280cef6209752a748f3002",params);
-
-            return  balance.getBalance();
         }
 
         @Override
-        protected void onPostExecute(Integer value) {
+        protected void onPostExecute(String value) {
             super.onPostExecute(value);
 
+            progressBar.setVisibility(View.GONE);
+
             if (value != null)
-              balance.setText("$"+String.valueOf(value.intValue()));
+              balance.setText("$"+value);
         }
-    }*/
+    }
 }

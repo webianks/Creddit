@@ -10,7 +10,6 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Toast
 import com.cloudant.client.api.ClientBuilder
-import com.cloudant.client.api.model.Params
 
 /**
  * Created by R Ankit on 24-09-2017.
@@ -65,14 +64,14 @@ class LoginActivity : AppCompatActivity(){
         CloudantClientAsync().execute(phone_number,mpin)
     }
 
-    internal inner class CloudantClientAsync : AsyncTask<String, Void, Boolean>() {
+    internal inner class CloudantClientAsync : AsyncTask<String, Void, User>() {
 
         override fun onPreExecute() {
             super.onPreExecute()
             showProgressDialog()
         }
 
-        override fun doInBackground(vararg strings: String): Boolean? {
+        override fun doInBackground(vararg strings: String): User? {
 
             val sent_number = strings[0]
             val sent_pin = strings[1]
@@ -85,19 +84,21 @@ class LoginActivity : AppCompatActivity(){
             val users_db = client.database("users", false)
             try {
                 val user = users_db.find(User::class.java, sent_number + "@#" + sent_pin)
-                return user != null
+                return user
             }catch (e: Exception){
-                return false
+                return null
             }
         }
 
-        override fun onPostExecute(value: Boolean?) {
+        override fun onPostExecute(value: User?) {
             super.onPostExecute(value)
 
             hideDialog()
 
-            if (value?.equals(true)!!){
-                startActivity(Intent(this@LoginActivity,MainActivity::class.java))
+            if (value != null){
+                val intent = Intent(this@LoginActivity,MainActivity::class.java)
+                intent.putExtra("user_document_key",value.phone_number + "@#" + value.m_pin)
+                startActivity(intent)
                 finish()
             }else{
                 Toast.makeText(this@LoginActivity,"Can't login",Toast.LENGTH_SHORT).show()
