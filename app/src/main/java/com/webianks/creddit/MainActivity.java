@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.cloudant.client.api.ClientBuilder;
 import com.cloudant.client.api.CloudantClient;
 import com.cloudant.client.api.Database;
+import com.cloudant.client.api.model.Params;
 
 import java.util.List;
 
@@ -37,10 +38,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    class CloudantClientAsync extends AsyncTask<Void,Void,Void>{
+    class CloudantClientAsync extends AsyncTask<Void,Void,Integer>{
 
         @Override
-        protected Void doInBackground(Void... voids) {
+        protected Integer doInBackground(Void... voids) {
 
             CloudantClient client = ClientBuilder.account(getString(R.string.cloudantUsername1))
                     .username(getString(R.string.cloudantUsername1))
@@ -54,11 +55,23 @@ public class MainActivity extends AppCompatActivity {
             }
 
             Database users_db = client.database("users", false);
+            Database balance_db = client.database("account_balance", false);
             User user = users_db.find(User.class,"ramankit_1214353AB");
-            Log.d("webi",user.getName());
 
-            return null;
+
+            Params params = new Params();
+            params.addParam("user_id",user.get_id());
+            Balance balance = balance_db.find(Balance.class,"460b7f0485280cef6209752a748f3002",params);
+
+            return  balance.getBalance();
         }
 
+        @Override
+        protected void onPostExecute(Integer value) {
+            super.onPostExecute(value);
+
+            if (value != null)
+              balance.setText("$"+String.valueOf(value.intValue()));
+        }
     }
 }
