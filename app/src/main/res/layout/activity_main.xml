@@ -6,13 +6,36 @@
     android:layout_height="match_parent"
     tools:context="com.webianks.creddit.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+   <android.support.design.widget.AppBarLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintRight_toRightOf="parent"
+       app:layout_constraintLeft_toLeftOf="parent"
+       >
+
+      <android.support.v7.widget.Toolbar
+          android:id="@+id/toolbar"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+
+         <TextView
+             android:id="@+id/main_balance"
+             android:textStyle="bold"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="end|center_vertical"
+             android:background="@drawable/rounded_drawable"
+             android:text="$"
+             android:paddingLeft="@dimen/essential_margin"
+             android:paddingRight="@dimen/essential_margin"
+             android:paddingTop="@dimen/essential_margin_half"
+             android:paddingBottom="@dimen/essential_margin_half"
+             android:layout_marginRight="@dimen/essential_margin"
+             />
+
+      </android.support.v7.widget.Toolbar>
+
+   </android.support.design.widget.AppBarLayout>
 
 </android.support.constraint.ConstraintLayout>
