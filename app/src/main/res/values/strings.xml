@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Creddit</string>
+    <string name="enter_your_pin">Enter your mPIN</string>
+    <string name="set_up_pin">SET UP MPIN</string>
+    <string name="submit">SUBMIT</string>
+    <string name="enter_your_pin_once_again">Enter mPIN again</string>
+    <string name="new_pin">New 6 digit PIN</string>
+    <string name="please_wait">Please wait..</string>
 </resources>

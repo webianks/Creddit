@@ -2,4 +2,5 @@
 <resources>
     <dimen name="essential_margin">16dp</dimen>
     <dimen name="essential_margin_half">8dp</dimen>
+    <dimen name="essential_margin_double">32dp</dimen>
 </resources>

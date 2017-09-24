@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         initViews();
 
-        new CloudantClientAsync().execute();
+        //new CloudantClientAsync().execute();
 
     }
 
