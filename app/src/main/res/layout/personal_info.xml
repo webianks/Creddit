@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:focusableInTouchMode="true"
     android:layout_height="match_parent">
 
     <android.support.design.widget.AppBarLayout
@@ -18,5 +19,128 @@
             />
 
     </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_below="@id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/essential_margin"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="@string/name"
+            />
+        <EditText
+            android:id="@+id/name_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/dash"
+            android:background="#00ffffff"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/essential_margin_half"
+            android:background="#DDDDDD"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/essential_margin"
+            android:text="@string/address"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/dash"
+            android:background="#00ffffff"
+            android:id="@+id/address_value"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/essential_margin_half"
+            android:background="#DDDDDD"
+            />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/essential_margin"
+            android:text="@string/email"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/dash"
+            android:background="#00ffffff"
+            android:id="@+id/email_value"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="@dimen/essential_margin_half"
+            android:background="#DDDDDD"
+            />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/essential_margin"
+            android:text="@string/phone_number"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/dash"
+            android:background="#00ffffff"
+            android:visibility="gone"
+            android:id="@+id/phone_value"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/essential_margin_half"
+            android:background="#DDDDDD"
+            />
+
+
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/submit"
+            android:layout_marginTop="@dimen/essential_margin"
+            android:background="?attr/selectableItemBackground"
+            />
+
+
+    </LinearLayout>
+
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        />
 
 </RelativeLayout>

@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView balance;
     private ProgressBar progressBar;
     private RecyclerView recyclerView;
+    private String doc_key;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +37,8 @@ public class MainActivity extends AppCompatActivity {
         initViews();
 
         Intent intent = getIntent();
-        String user_doc_key = intent.getStringExtra("user_document_key");
-        new CloudantClientAsync().execute(user_doc_key+"_account_");
+        doc_key = intent.getStringExtra("user_document_key");
+        new CloudantClientAsync().execute(doc_key+"_account_");
 
     }
 
@@ -59,8 +60,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (item.getItemId() == R.id.change_info)
-            startActivity(new Intent(this,PersonalInfoActivity.class));
+        if (item.getItemId() == R.id.change_info) {
+            Intent intent = new Intent(this,PersonalInfoActivity.class);
+            intent.putExtra("document_key",doc_key);
+            startActivity(intent);
+        }
 
         return super.onOptionsItemSelected(item);
     }
