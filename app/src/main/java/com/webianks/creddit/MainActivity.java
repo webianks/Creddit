@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView balance;
     private ProgressBar progressBar;
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         balance = (TextView) findViewById(R.id.main_balance);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
-
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
     }
 
     @Override
@@ -57,9 +59,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (item.getItemId() == R.id.change_info){
-
-        }
+        if (item.getItemId() == R.id.change_info)
+            startActivity(new Intent(this,PersonalInfoActivity.class));
 
         return super.onOptionsItemSelected(item);
     }

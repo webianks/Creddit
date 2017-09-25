@@ -25,6 +25,9 @@
         </activity>
 
         <activity android:name=".SignupActivity"/>
+        <activity android:name=".PersonalInfoActivity"
+            android:label="@string/personal_info"
+            />
 
     </application>
 

@@ -7,6 +7,7 @@
     tools:context="com.webianks.creddit.MainActivity">
 
    <android.support.design.widget.AppBarLayout
+       android:id="@+id/appbar"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        app:layout_constraintTop_toTopOf="parent"
@@ -37,6 +38,18 @@
       </android.support.v7.widget.Toolbar>
 
    </android.support.design.widget.AppBarLayout>
+
+
+   <android.support.v7.widget.RecyclerView
+       android:id="@+id/recyclerview"
+       android:layout_width="0dp"
+       android:layout_height="0dp"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintTop_toBottomOf="@id/appbar"
+       app:layout_constraintRight_toRightOf="parent"
+       app:layout_constraintLeft_toLeftOf="parent"
+       />
+
 
    <ProgressBar
        android:id="@+id/progress_bar"

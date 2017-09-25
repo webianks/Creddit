@@ -8,4 +8,5 @@
     <string name="please_wait">Please wait..</string>
     <string name="phone_number">Phone Number</string>
     <string name="account">Account</string>
+    <string name="personal_info">Personal Info</string>
 </resources>
