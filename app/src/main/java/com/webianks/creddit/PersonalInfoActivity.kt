@@ -115,7 +115,8 @@ class PersonalInfoActivity : AppCompatActivity(){
             progress_bar.visibility = View.GONE
             if (value){
                 showError("Updated")
-            }
+            }else
+                showError("Failed to update.")
         }
     }
 
