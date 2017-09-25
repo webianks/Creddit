@@ -18,7 +18,7 @@ class MainRecyclerViewAdapter(var context: Context,
 
     override fun onBindViewHolder(holder: VH?, position: Int) {
 
-        holder?.paid?.text = transactionDataList?.get(position)?.amount
+        holder?.paid?.text = "$"+transactionDataList?.get(position)?.amount
         holder?.to?.text = "paid to "+transactionDataList?.get(position)?.paid_to
     }
 

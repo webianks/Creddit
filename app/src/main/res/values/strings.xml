@@ -13,4 +13,6 @@
     <string name="address">Address</string>
     <string name="email">Email</string>
     <string name="dash">not present</string>
+    <string name="amount">Amount?</string>
+    <string name="paid_to">Paid to?</string>
 </resources>

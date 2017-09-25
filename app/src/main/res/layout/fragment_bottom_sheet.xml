@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/essential_margin_double"
+    >
+
+    <EditText
+        android:id="@+id/amount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/amount"
+        android:inputType="number"
+        />
+
+    <EditText
+        android:id="@+id/paid_to"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/paid_to"
+        />
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/essential_margin"
+        android:background="?attr/selectableItemBackground"
+        android:text="@string/submit"
+        />
+
+</LinearLayout>
