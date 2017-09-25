@@ -36,7 +36,8 @@
     <android.support.design.widget.TextInputLayout
         android:id="@+id/pin_layout"
         android:layout_width="match_parent"
-        android:layout_margin="@dimen/essential_margin_double"
+        android:layout_marginLeft="@dimen/essential_margin_double"
+        android:layout_marginRight="@dimen/essential_margin_double"
         android:layout_below="@id/phone_number_layout"
         android:layout_height="wrap_content">
 
@@ -44,7 +45,7 @@
             android:id="@+id/mPinEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
+            android:inputType="numberPassword"
             android:hint="@string/enter_your_pin"
             android:maxLength="6"
             android:gravity="center"
@@ -53,12 +54,25 @@
     </android.support.design.widget.TextInputLayout>
 
     <Button
+        android:id="@+id/submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/submit"
+        android:background="?attr/selectableItemBackground"
+        android:layout_below="@id/pin_layout"
+        android:layout_marginLeft="@dimen/essential_margin_double"
+        android:layout_marginRight="@dimen/essential_margin_double"
+        android:layout_marginTop="@dimen/essential_margin_half"
+        android:layout_marginBottom="@dimen/essential_margin_double"
+        />
+
+    <Button
         android:id="@+id/signup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/set_up_pin"
         android:background="?attr/selectableItemBackground"
-        android:layout_below="@id/pin_layout"
+        android:layout_below="@id/submit"
         android:layout_marginLeft="@dimen/essential_margin_double"
         android:layout_marginRight="@dimen/essential_margin_double"
         android:layout_marginTop="@dimen/essential_margin_half"

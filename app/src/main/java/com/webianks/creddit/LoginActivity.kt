@@ -39,6 +39,12 @@ class LoginActivity : AppCompatActivity(){
             startActivity(intent)
         }
 
+        findViewById(R.id.submit).setOnClickListener {
+
+            if(mPinET.text.length == 6 && phoneNumberET.text.length == 10)
+                   performLogin(mPinET.text)
+        }
+
         mPinET.addTextChangedListener(object: TextWatcher{
             override fun afterTextChanged(s: Editable?) {}
 
@@ -63,6 +69,7 @@ class LoginActivity : AppCompatActivity(){
 
         CloudantClientAsync().execute(phone_number,mpin)
     }
+
 
     internal inner class CloudantClientAsync : AsyncTask<String, Void, User>() {
 

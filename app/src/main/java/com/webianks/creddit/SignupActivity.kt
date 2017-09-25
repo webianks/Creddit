@@ -8,7 +8,7 @@ import android.support.design.widget.TextInputEditText
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.cloudant.client.api.ClientBuilder
-import com.cloudant.client.api.model.Params
+import java.util.concurrent.ThreadLocalRandom
 
 /**
  * Created by R Ankit on 24-09-2017.
@@ -18,6 +18,7 @@ class SignupActivity : AppCompatActivity() {
     lateinit var mPinET: TextInputEditText
     lateinit var mPinAgainET: TextInputEditText
     lateinit var phoneET: TextInputEditText
+    lateinit var documentKey: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,17 +68,19 @@ class SignupActivity : AppCompatActivity() {
     }
 
 
-    internal inner class CloudantClientAsync : AsyncTask<String, Void, Boolean>() {
+    internal inner class CloudantClientAsync : AsyncTask<String, Void, String?>() {
 
         override fun onPreExecute() {
             super.onPreExecute()
             showProgressDialog()
         }
 
-        override fun doInBackground(vararg strings: String): Boolean? {
+        override fun doInBackground(vararg strings: String): String? {
 
             val phone_number = strings[0]
             val m_pin = strings[1]
+
+            documentKey = phone_number+"@#"+m_pin
 
             val client = ClientBuilder.account(getString(R.string.cloudantUsername1))
                     .username(getString(R.string.cloudantUsername1))
@@ -85,25 +88,34 @@ class SignupActivity : AppCompatActivity() {
                     .build()
 
             val users_db = client.database("users", false)
+            val account_info_db = client.database("account_info", false)
+            val personal_info_db = client.database("personal_info", false)
 
-            val newUser = User(phone_number+"@#"+m_pin,"Droid Man",phone_number,m_pin)
-            users_db.save(newUser)
+            val randomBalance  = ThreadLocalRandom.current().nextInt(1000, 10000 + 1)
 
-            val doc = users_db.find(User::class.java, phone_number+"@#"+m_pin)
+            val newUser = User(phone_number+"@#"+m_pin,"",phone_number,m_pin)
+            val newPersonalInfo = PersonalDataWithoutRev(phone_number+"@#"+m_pin+"_personal_","user_"+m_pin,"","")
+            val newAccountData = TransactionDataWithoutRev(phone_number+"@#"+m_pin+"_account_",balance = randomBalance.toString(), transactions = null)
 
-            return true
+            val response = users_db.save(newUser)
+            val response2 = personal_info_db.save(newPersonalInfo)
+            val response3 = account_info_db.save(newAccountData)
+
+            return response3.error
         }
 
-        override fun onPostExecute(value: Boolean?) {
+        override fun onPostExecute(value: String?) {
             super.onPostExecute(value)
 
             hideDialog()
 
-            if (value?.equals(true)!!){
-                startActivity(Intent(this@SignupActivity,MainActivity::class.java))
+            if (value == null){
+                val intent = Intent(this@SignupActivity,MainActivity::class.java)
+                intent.putExtra("user_document_key",documentKey)
+                startActivity(intent)
                 finish()
             }else{
-               showErrorMessage("Can't set mpin.")
+               showErrorMessage("Can't complete signup.")
             }
         }
     }

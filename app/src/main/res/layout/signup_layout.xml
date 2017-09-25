@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:hint="@string/new_pin"
-            android:inputType="number"
+            android:inputType="numberPassword"
             android:maxLength="6" />
 
     </android.support.design.widget.TextInputLayout>
@@ -69,7 +69,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:hint="@string/enter_your_pin_once_again"
-            android:inputType="number"
+            android:inputType="numberPassword"
             android:maxLength="6" />
 
     </android.support.design.widget.TextInputLayout>
