@@ -1,2 +1,2 @@
 # Creddit
-Will fill this later.
+Basic credit card maintenance demonstration app.
